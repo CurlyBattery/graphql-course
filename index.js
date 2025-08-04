@@ -53,16 +53,46 @@ const resolvers = {
 
       return db.games;
     },
+    addGame(_, args) {
+      let game = {
+        ...args.game,
+        id: Math.floor(Math.random() * 10000).toString(),
+      };
+
+      db.games.push(game);
+
+      return game;
+    },
     deleteReview(_, args) {
       db.reviews = db.reviews.filter((r) => r.id !== args.id);
 
       return db.reviews;
+    },
+    addReview(_, args) {
+      let review = {
+        ...args.review,
+        id: Math.floor(Math.random() * 10000).toString()
+      };
+
+      db.reviews.push(review);
+
+      return review;
     },
     deleteAuthor(_, args) {
       db.authors = db.authors.filter((a) => a.id !== args.id);
       db.reviews = db.reviews.filter((r) => r.author_id !== args.id);
 
       return db.authors;
+    },
+    addAuthor(_, args) {
+      let author = {
+        ...args.author,
+        id: Math.floor(Math.random() * 10000).toString()
+      };
+
+      db.authors.push(author);
+
+      return author;
     }
   }
 };
