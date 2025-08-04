@@ -45,7 +45,26 @@ const resolvers = {
         author(parent) {
           return db.authors.find((a) => a.id === parent.author_id);
         }
+    },
+  Mutation: {
+    deleteGame(_, args) {
+      db.games = db.games.filter((g) => g.id !== args.id);
+      db.reviews = db.reviews.filter((r) => r.game_id !== args.id);
+
+      return db.games;
+    },
+    deleteReview(_, args) {
+      db.reviews = db.reviews.filter((r) => r.id !== args.id);
+
+      return db.reviews;
+    },
+    deleteAuthor(_, args) {
+      db.authors = db.authors.filter((a) => a.id !== args.id);
+      db.reviews = db.reviews.filter((r) => r.author_id !== args.id);
+
+      return db.authors;
     }
+  }
 };
 
 // server setup
